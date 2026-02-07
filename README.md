@@ -45,6 +45,52 @@ For more installation options, uninstall steps, and troubleshooting, see the [se
 
 2. Navigate to your project directory and run `claude`.
 
+## AiCode - Automated Coding System
+
+This repository now includes **AiCode**, a comprehensive automated AI-powered coding system with flow-based architecture. AiCode provides intelligent code analysis, generation, repair, testing, and deployment capabilities.
+
+### Quick Start with AiCode
+
+```bash
+# Navigate to AiCode
+cd app/
+
+# Install dependencies
+npm install
+
+# Run full automation
+node orchestrator.ts full .
+
+# Or use individual utilities
+npm run aicode:analyze    # Analyze code
+npm run repair            # Repair issues
+npm run auto-test         # Generate & run tests
+npm run deploy            # Deploy to Vercel
+```
+
+### Key Features
+
+- **🧠 Intelligent Analysis** - Deep code understanding and metrics
+- **🤖 AI Generation** - Automatic code, tests, and documentation
+- **🔧 Auto Repair** - Fix common issues automatically
+- **🐛 Auto Fix** - Detect and repair bugs
+- **🧪 Auto Test** - Generate tests with coverage
+- **🚀 Auto Deploy** - Deploy to Vercel, Netlify, AWS, Heroku
+- **📝 Auto Comments** - Generate comprehensive documentation
+- **🏗️ Builders** - Flow, Component, Workflow, and Pipeline builders
+
+### Documentation
+
+Complete documentation available in the [docs/](./docs/) directory:
+- [Getting Started](./docs/getting-started/quick-start.md)
+- [Core Concepts](./docs/core-concepts/README.md)
+- [Automation Utilities](./docs/automation-utilities/README.md)
+- [Builders](./docs/builders/README.md)
+- [Examples](./docs/examples/README.md)
+- [API Reference](./docs/api-reference/README.md)
+
+See [AICODE_SUMMARY.md](./AICODE_SUMMARY.md) for a complete overview.
+
 ## Plugins
 
 This repository includes several Claude Code plugins that extend functionality with custom commands and agents. See the [plugins directory](./plugins/README.md) for detailed documentation on available plugins.
