@@ -1,0 +1,62 @@
+{
+  "version": "1.0.0",
+  "automation": {
+    "autoSync": {
+      "enabled": true,
+      "interval": 60000,
+      "autoCommit": false,
+      "patterns": ["**/*.ts", "**/*.js", "**/*.tsx", "**/*.jsx"],
+      "exclude": ["node_modules/**", "dist/**"]
+    },
+    "autoConfig": {
+      "enabled": true,
+      "framework": "auto",
+      "typescript": true,
+      "testing": "jest",
+      "linting": true,
+      "prettier": true
+    },
+    "autoRepair": {
+      "enabled": true,
+      "autoFix": true,
+      "dryRun": false,
+      "categories": ["lint", "format", "common", "imports"]
+    },
+    "autoFix": {
+      "enabled": true,
+      "categories": ["security", "performance", "logic", "style"],
+      "aggressive": false,
+      "backup": true
+    },
+    "autoTest": {
+      "enabled": true,
+      "framework": "jest",
+      "coverage": true,
+      "generate": true,
+      "threshold": {
+        "lines": 80,
+        "functions": 80,
+        "branches": 75,
+        "statements": 80
+      }
+    },
+    "autoDeploy": {
+      "enabled": false,
+      "platform": "vercel",
+      "environment": "production",
+      "skipTests": false,
+      "autoMigrate": false
+    },
+    "autoComments": {
+      "enabled": true,
+      "style": "all",
+      "suggestions": true,
+      "overwrite": false
+    }
+  },
+  "triggers": {
+    "onSave": ["autoRepair", "autoComments"],
+    "onCommit": ["autoSync", "autoTest"],
+    "onPush": ["autoDeploy"]
+  }
+}

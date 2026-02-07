@@ -1,0 +1,65 @@
+{
+  "version": "1.0.0",
+  "builders": {
+    "flow": {
+      "defaultSteps": [
+        "sync",
+        "analyze",
+        "repair",
+        "test",
+        "comment"
+      ],
+      "parallel": false,
+      "continueOnError": false
+    },
+    "component": {
+      "frameworks": {
+        "react": {
+          "template": "functional",
+          "typescript": true,
+          "hooks": true
+        },
+        "vue": {
+          "version": 3,
+          "typescript": true,
+          "composition": true
+        },
+        "angular": {
+          "version": 15,
+          "typescript": true
+        }
+      },
+      "naming": {
+        "convention": "PascalCase",
+        "suffix": true
+      }
+    },
+    "workflow": {
+      "retries": 3,
+      "timeout": 30000,
+      "parallel": false
+    },
+    "pipeline": {
+      "stages": {
+        "install": {
+          "command": "npm ci",
+          "cache": ["node_modules"]
+        },
+        "lint": {
+          "command": "npm run lint",
+          "dependencies": ["install"]
+        },
+        "test": {
+          "command": "npm test",
+          "dependencies": ["install"],
+          "coverage": true
+        },
+        "build": {
+          "command": "npm run build",
+          "dependencies": ["lint", "test"],
+          "artifacts": ["dist"]
+        }
+      }
+    }
+  }
+}

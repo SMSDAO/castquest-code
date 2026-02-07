@@ -1,0 +1,63 @@
+{
+  "version": "1.0.0",
+  "name": "AiCode System",
+  "description": "Automated AI-powered code processing and management system",
+  "engine": {
+    "mode": "auto",
+    "verbose": true,
+    "dryRun": false
+  },
+  "features": {
+    "codeAnalysis": {
+      "enabled": true,
+      "deep": true,
+      "patterns": true
+    },
+    "codeGeneration": {
+      "enabled": true,
+      "tests": true,
+      "documentation": true,
+      "comments": true
+    },
+    "automation": {
+      "autoSync": true,
+      "autoConfig": true,
+      "autoRepair": true,
+      "autoFix": true,
+      "autoTest": true,
+      "autoDeploy": false,
+      "autoComments": true
+    }
+  },
+  "builders": {
+    "flowBuilder": {
+      "enabled": true,
+      "defaultFlow": "auto"
+    },
+    "componentBuilder": {
+      "enabled": true,
+      "defaultFramework": "react"
+    },
+    "workflowBuilder": {
+      "enabled": true,
+      "parallel": false
+    },
+    "pipelineBuilder": {
+      "enabled": true,
+      "platform": "github"
+    }
+  },
+  "targets": {
+    "sourceDirectory": "./src",
+    "buildDirectory": "./dist",
+    "testDirectory": "./tests",
+    "docsDirectory": "./docs"
+  },
+  "excludePatterns": [
+    "node_modules/**",
+    "dist/**",
+    "build/**",
+    ".git/**",
+    "*.log"
+  ]
+}
