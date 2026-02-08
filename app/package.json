@@ -19,7 +19,12 @@
     "fix": "node utils/auto-fix.ts .",
     "auto-test": "node utils/auto-test.ts ./src",
     "deploy": "node utils/auto-deploy.ts vercel production",
-    "comments": "node utils/auto-comments.ts ./src"
+    "comments": "node utils/auto-comments.ts ./src",
+    "sync:components": "node utils/component-auto-sync.ts app,web,mobile .",
+    "sync:components:watch": "node utils/component-auto-sync.ts app,web,mobile . --watch",
+    "sync:components:db": "node utils/component-auto-sync.ts app,web,mobile . --database",
+    "config:components": "node utils/component-auto-config.ts app,web,mobile . postgres",
+    "config:components:mongo": "node utils/component-auto-config.ts app,web,mobile . mongodb"
   },
   "keywords": [
     "aicode",

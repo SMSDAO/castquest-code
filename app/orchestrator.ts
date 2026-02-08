@@ -14,15 +14,25 @@ import { AutoFix } from './utils/auto-fix';
 import { AutoTest } from './utils/auto-test';
 import { AutoDeploy } from './utils/auto-deploy';
 import { AutoComments } from './utils/auto-comments';
+import { ComponentAutoSync } from './utils/component-auto-sync';
+import { ComponentAutoConfig } from './utils/component-auto-config';
 import * as fs from 'fs';
 import * as path from 'path';
 
 export interface OrchestratorConfig {
   target: string;
-  mode: 'full' | 'development' | 'ci' | 'deployment';
+  mode: 'full' | 'development' | 'ci' | 'deployment' | 'components';
   watch?: boolean;
   interval?: number;
   deployPlatform?: 'vercel' | 'netlify' | 'aws' | 'heroku';
+  components?: {
+    enabled: boolean;
+    platforms: Array<'app' | 'web' | 'mobile'>;
+    database?: {
+      enabled: boolean;
+      type: 'postgres' | 'mysql' | 'mongodb' | 'sqlite';
+    };
+  };
 }
 
 export interface OrchestratorResult {
@@ -75,6 +85,9 @@ export class AiCodeOrchestrator {
           break;
         case 'deployment':
           await this.runDeploymentMode(result);
+          break;
+        case 'components':
+          await this.runComponentMode(result);
           break;
       }
 
@@ -189,6 +202,52 @@ export class AiCodeOrchestrator {
 
     const deployResult = await this.runAutoDeploy();
     result.phases.set('deploy', deployResult);
+  }
+
+  /**
+   * Run component mode (component-based sync and config)
+   */
+  private async runComponentMode(result: OrchestratorResult): Promise<void> {
+    console.log('\n📋 Running Component Mode...');
+
+    if (!this.config.components?.enabled) {
+      console.log('⚠️  Components not configured, skipping...');
+      return;
+    }
+
+    // Component configuration
+    const componentConfig = new ComponentAutoConfig({
+      target: this.config.target,
+      components: this.config.components.platforms,
+      framework: 'auto',
+      typescript: true,
+      linting: true,
+      prettier: true,
+      database: this.config.components.database?.enabled ? {
+        type: this.config.components.database.type,
+        generateMigrations: true
+      } : undefined,
+      shared: true
+    });
+
+    const configResult = await componentConfig.configureComponents();
+    result.phases.set('component-config', { success: true });
+
+    // Component synchronization
+    const componentSync = new ComponentAutoSync({
+      target: this.config.target,
+      components: this.config.components.platforms,
+      database: this.config.components.database?.enabled ? {
+        enabled: true,
+        syncSchema: true,
+        syncMigrations: true
+      } : undefined,
+      crossComponentSync: true,
+      autoCommit: false
+    });
+
+    const syncResult = await componentSync.syncComponents();
+    result.phases.set('component-sync', syncResult);
   }
 
   /**
