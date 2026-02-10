@@ -250,7 +250,7 @@ See the examples directory for usage examples.
   /**
    * Add comments to code
    */
-  async addComments(content: string): string {
+  async addComments(content: string): Promise<string> {
     const lines = content.split('\n');
     const commented: string[] = [];
 
