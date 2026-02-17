@@ -6,6 +6,8 @@
   "scripts": {
     "start": "ts-node core/aicode-engine.ts",
     "dev": "nodemon --exec ts-node core/aicode-engine.ts",
+    "api": "ts-node api-server.ts",
+    "api:dev": "nodemon --exec ts-node api-server.ts",
     "build": "tsc",
     "test": "jest",
     "lint": "eslint . --ext .ts",
