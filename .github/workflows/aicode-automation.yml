@@ -86,7 +86,7 @@ jobs:
       - name: 🚀 Run Full Orchestration
         run: |
           cd app
-          node orchestrator.ts ci .
+          npx ts-node orchestrator.ts ci .
         env:
           NODE_ENV: production
 
